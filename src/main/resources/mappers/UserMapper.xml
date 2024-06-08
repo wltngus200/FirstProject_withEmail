@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                 "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.firstprojectwithemail.user.UserMapper">
+
+    <insert id="signUpUser" keyProperty="userId" useGeneratedKeys="true">
+        INSERT INTO user
+        (uid, upw, nm, email)
+        VALUES
+        (#{uid}, #{upw}, #{nm}, #{email})
+    </insert>
+
+    <select id="findUserByUserId">
+        SELECT user_id AS userId, uid, upw, nm, email, created_at AS createdAt, updated_at AS updatedAt
+        FROM user
+        WHERE uid=#{uid}
+    </select>
+
+    <select id="userInfo">
+        SELECT user_id AS userId, uid, upw, nm, email, created_at AS createdAt, updated_at AS updatedAt
+        FROM user
+        WHERE user_id=#{signedUserId}
+    </select>
+
+    <delete id="deleteUser">
+        DELETE
+        FROM user
+        WHERE user_id=#{signedUserId}
+    </delete>
+
+    <update id="ChangePass">
+        UPDATE user
+        <set>
+            upw=#{newUpw}
+        </set>
+        WHERE uid=#{uid}
+    </update>
+</mapper>
