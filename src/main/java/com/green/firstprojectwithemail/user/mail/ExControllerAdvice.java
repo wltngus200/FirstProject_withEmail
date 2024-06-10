@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
-@RestControllerAdvice
+@RestControllerAdvice //에러처리 exceptionHandler
 public class ExControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity<ErrorResult> testing(NullPointerException e){
+    public ResponseEntity<ErrorResult/*code, 메세지*/> testing(NullPointerException e){
         ErrorResult errorResult=new ErrorResult("EMAIL",e.getMessage());
         return new ResponseEntity<>(errorResult,HttpStatus.BAD_REQUEST);
     }

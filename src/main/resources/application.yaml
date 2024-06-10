@@ -7,10 +7,7 @@ spring:
   servlet:
     multipart:
       max-file-size: 5MB
-  redis:
-    host: localhost
-    port: 6379
-
+      
 file:
   directory: D:\2024_BACK_JI\download\first_email
 

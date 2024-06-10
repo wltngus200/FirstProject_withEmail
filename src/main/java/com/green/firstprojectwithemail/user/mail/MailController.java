@@ -24,7 +24,7 @@ public class MailController {
         return mailService.joinEmail(emailDto.getEmail());
     }
     @PostMapping("/mailauthCheck")
-    public String AuthCheck(@RequestBody @Valid EmailCheckDto emailCheckDto){
+    public String AuthCheck(@RequestBody @Valid EmailCheckDto emailCheckDto/*이메일이랑 임의 코드*/){
         Boolean Checked=mailService.CheckAuthNum(emailCheckDto.getEmail(),emailCheckDto.getAuthNum());
         if(Checked){
             return "ok";

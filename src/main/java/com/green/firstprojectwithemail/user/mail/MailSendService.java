@@ -43,7 +43,7 @@ public class MailSendService {
 
     //mail을 어디서 보내는지, 어디로 보내는지 , 인증 번호를 html 형식으로 어떻게 보내는지 작성합니다.
     public String joinEmail(String email) {
-        makeRandomNumber();
+        makeRandomNumber(); //임의의 인증번호를 생성해서 멤버필드에 저장하는 메소드
         String setFrom = "dionisos198@naver.com"; // email-config에 설정한 자신의 이메일 주소를 입력
         String toMail = email;
         String title = "회원 가입 인증 이메일 입니다."; // 이메일 제목
@@ -54,11 +54,12 @@ public class MailSendService {
                         "<br>" +
                         "인증번호를 제대로 입력해주세요"; //이메일 내용 삽입
         mailSend(setFrom, toMail, title, content);
-        return Integer.toString(authNumber);
+        return Integer.toString(authNumber/*인증번호*/);
     }
 
     //이메일을 전송합니다.
     public void mailSend(String setFrom, String toMail, String title, String content) {
+        //mailSender 는 @configuration으로 싱글톤으로 값이 지정되어있음
         MimeMessage message = mailSender.createMimeMessage();//JavaMailSender 객체를 사용하여 MimeMessage 객체를 생성
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message,true,"utf-8");//이메일 메시지와 관련된 설정을 수행합니다.
@@ -72,7 +73,7 @@ public class MailSendService {
             // 이러한 경우 MessagingException이 발생
             e.printStackTrace();//e.printStackTrace()는 예외를 기본 오류 스트림에 출력하는 메서드
         }
-        redisUtil.setDataExpire(Integer.toString(authNumber),toMail,60*5L);
+        redisUtil.setDataExpire(Integer.toString(authNumber),toMail/*받는 사람 이메일*/,60*5L);
 
     }
 
